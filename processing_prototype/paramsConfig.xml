@@ -1,0 +1,9 @@
+<configuration>
+	<params>
+		<param>
+			<name>MSC</name>
+			<module>msc</module>
+			<version>1.0.1</version>
+		</param>
+	</params>
+</configuration>
