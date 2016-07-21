@@ -7,11 +7,12 @@ var Stomp = require('stomp-client');
 var destination = '/queue/TEST_PC_01';
 var client = new Stomp('127.0.0.1', 61613, 'admin', 'admin');
 
+
 var _param_modules_dir = __dirname+'/param_modules/'
 fs.readFile(__dirname+'/paramsConfig.xml' ,  function(err, data){
  parser.parseString(data, function (err, result) {
         if(err) throw new Error('cannot load configuration , starting abort');
-	    var params = result.configuration.params[0].param[0];
+	    var params = result.configuration.params[0].param;
         initHawk(params);
     });
 });
@@ -36,12 +37,6 @@ function initHawk(params){
 	  });
 	} else {
 
-i 		initFork(params);
-	}
-
-}
-
-function initFork(params){
 	console.log(JSON.stringify(params));
 	console.log('initparam..');
 	params.forEach(function(paramobj){
@@ -49,7 +44,7 @@ function initFork(params){
 
 	var modulename = paramobj.module[0];
 	console.log('\tParam name : '+modulename);
-	var module = require(modulename);
+	var module = require(_param_modules_dir+modulename);
 	module.init({db:'databasename'});
 	module.start();
 	//subscribe for activeMQ qspacename
@@ -60,5 +55,6 @@ function initFork(params){
 		});
 	  });
    });
-}
+ }
 
+}

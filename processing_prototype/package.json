@@ -9,6 +9,7 @@
   "author": "Ali Amechghal <ali.amechghal@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "stomp-client": "^0.8.1",
     "xml2js": "^0.4.17"
   }
 }
