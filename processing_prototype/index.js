@@ -3,7 +3,9 @@ var fs =  require('fs');
 var numCPUs = require('os').cpus().length;
 var parser =  require('xml2js');
 
-
+var Stomp = require('stomp-client');
+var destination = '/queue/TEST_PC_01';
+var client = new Stomp('127.0.0.1', 61613, 'admin', 'admin');
 
 var _param_modules_dir = __dirname+'/param_modules/'
 fs.readFile(__dirname+'/paramsConfig.xml' ,  function(err, data){
@@ -22,9 +24,9 @@ function initHawk(params){
 		logging_instance : {},
 		globale_configuration : {}
 	};
-	
+
 	if (cluster.isMaster) {
-	  
+
 	  for (var i = 0; i < numCPUs; i++) {
 	    cluster.fork();
 	  }
@@ -33,15 +35,30 @@ function initHawk(params){
 	    cluster.fork();
 	  });
 	} else {
-	  
 
-		console.log(JSON.stringify(params));
-		var module_name =  params.module[0];
-		var paramModile = require(_param_modules_dir+module_name);
-		
-		paramModile.init(hawk_configuration_instance);
-		paramModile.start();
-
+i 		initFork(params);
 	}
 
 }
+
+function initFork(params){
+	console.log(JSON.stringify(params));
+	console.log('initparam..');
+	params.forEach(function(paramobj){
+
+
+	var modulename = paramobj.module[0];
+	console.log('\tParam name : '+modulename);
+	var module = require(modulename);
+	module.init({db:'databasename'});
+	module.start();
+	//subscribe for activeMQ qspacename
+
+	client.connect(function(sessionId) {
+		client.subscribe(destination, function(body, headers) {
+			module.receive( body);
+		});
+	  });
+   });
+}
+

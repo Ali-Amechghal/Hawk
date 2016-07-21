@@ -7,8 +7,12 @@
 	function  __start(){
 		console.log('starting parameter moduel');
 	}
+    function __receive(data){
+        console.log(data);
+    }
 	module.exports  = {
 		init  :  __init,
-		start : __start
+		start : __start,
+        receive : __receive
 	}
 }());
