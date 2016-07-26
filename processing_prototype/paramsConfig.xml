@@ -3,6 +3,7 @@
 		<param>
 			<name>MSC</name>
 			<module>msc</module>
+			<QSpace>TEST_PC_01</QSpace>
 			<version>1.0.1</version>
 		</param>
 	</params>

@@ -9,6 +9,8 @@
   "author": "Ali Amechghal <ali.amechghal@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "mysql": "^2.11.1",
+    "sequelize": "^3.23.6",
     "stomp-client": "^0.8.1",
     "xml2js": "^0.4.17"
   }
