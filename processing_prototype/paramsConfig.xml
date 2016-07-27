@@ -3,6 +3,9 @@
 		<param>
 			<name>MSC</name>
 			<module>msc</module>
+			<PUBLISHER_APPLICATION>PLATINE</PUBLISHER_APPLICATION>
+			<CONSUMER_APPLICATION>DATAWAREHUOSE</CONSUMER_APPLICATION>
+			<TYPE>MEDIATION</TYPE>
 			<QSpace>TEST_PC_01</QSpace>
 			<version>1.0.1</version>
 		</param>

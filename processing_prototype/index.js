@@ -38,8 +38,10 @@ function initHawk(params){
 		}
 	}
     var _kernelDao  = kernelDao.getInstance(database_configuration);
+    var _database_instance=_kernelDao.connect();
 	var hawk_configuration_instance = {
-		database_instance:_kernelDao,
+		kernelDao:_kernelDao,
+		database_instance:_database_instance,
 		middleware_configuration_instance : {},
 		logging_instance : {},
 		globale_configuration : {}
@@ -55,26 +57,20 @@ function initHawk(params){
 	    cluster.fork();
 	  });
 	} else {
-
 	//call each parameter module with configuration object
 	params.forEach(function(paramobj){
-
 			var modulename = paramobj.module[0];
 			var qSpace = _Queue+paramobj.QSpace[0];
 			var module = require(_param_modules_dir+modulename);
 			module.init(hawk_configuration_instance);
-			module.start();
+			module.start('qSpace : '+qSpace+' , module : '+module);
 			//subscribe for activeMQ qspacename
-			
 			client.connect(function(sessionId) {
 				var curDate = new Date();
                 var subscriptionId = 'HawkSubscriber-'+curDate.getTime();
 				client.subscribe(qSpace, { ack: 'client-individual', id: subscriptionId } , function(body, headers) {
-					//console.log('header:'+JSON.stringify(headers));
 					client.ack(headers["message-id"], subscriptionId);
 					module.receive(body);
-					//var headersss  = subscriber.subscriptions['/queue/TEST_PC_01'].headers;
-					
 				});
 			});
    });
