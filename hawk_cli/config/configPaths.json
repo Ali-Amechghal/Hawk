@@ -1,0 +1,7 @@
+{
+	"referentielDataFolder":"../processing_prototype/hawk_processing_kernel/referentiel",
+	"configurationDirPath":"../processing_prototype/hawk_processing_kernel/config",
+	"dbConfigFile":"db.json",
+	"paramConfigFile":"paramConfig.json"
+
+}
