@@ -1,0 +1,8 @@
+Hawk CLI
+
+CLI for hawk project , used for this kind of tasks:
+
+° generating secure configuration files 
+° packaging for delivery
+° extract message from middleware Qspaces
+° And more ...
