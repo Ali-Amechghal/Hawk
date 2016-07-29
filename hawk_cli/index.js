@@ -14,7 +14,7 @@ vorpal
   });
   //initialize the referentiel
   vorpal
-  .command('initRefTable <table_name> <data_file>', 'Initialize the referential table')
+  .command('initRefTable <table_name> <data_file> <redefine>', 'Initialize the referential table')
   .action(function(args, callback) {
     callback();
   });
@@ -22,7 +22,7 @@ vorpal
   .command('insertToRefTable <table_name> <data_file>', 'Insert  or append given data to the referential table')
   .action(function(args, callback) {
     if(cli.isTableExists(args.table_name)){
-        // convert the BSON to JSON and add the new line 
+        // convert the BSON to JSON and add the new line
         // and convert it back to BSON
     }else{
       throw new Error('the referential table  : '+args.table_name+' doent exists');
@@ -33,7 +33,7 @@ vorpal
   .command('updateRefTable <table_name> <data_ligne> <activate>', 'Activate/Deactivate MSISCN in the referential table')
   .action(function(args, callback) {
     if(cli.isTableExists(args.table_name)){
-        // convert the BSON to JSON and udpate the given MSISDN line 
+        // convert the BSON to JSON and udpate the given MSISDN line
         // and convert it back to BSON
     }else{
       throw new Error('the referential table  : '+args.table_name+' doent exists');
