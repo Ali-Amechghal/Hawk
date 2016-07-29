@@ -10,7 +10,7 @@ var hawk_cli={
 				throw new Error('Cannot find the given path or is not folder');
 
 		});
-	}
+	},
 	isTableExists:function(tableName){
 		fs.lstat(path.join(this.hawk_referentiel_data_folder , tableName), function(err, stats){
 			if(err || !stats.isFile())
@@ -18,7 +18,24 @@ var hawk_cli={
 			else
 				return true;
 		});
+	},
+	init: function(tableName , dataFile , redefine){
+		//check if data file exists
+		fs.lstat(dataFile, function(err, stats){
+			if(!err && stats.isFile()){
+				var dataFileStream = fs.createReadStream(dataFile);
+				var referentialDataFileStream = fs.createWriteStream(path.join(this.hawk_referentiel_data_folder , tableName));
+
+				referentialDataFileStream.setEncoding('utf8');
+				dataFileStream.setEncoding('utf8');
+
+				//read.stream.bson.stream(write)
+
+			}
+				
+		});
 	}
+	
 }
 
 module.exports = hawk_cli;
