@@ -22,7 +22,7 @@ var hawk_cli={
 	init: function(tableName , dataFile , redefine){
 		//check if data file exists
 		fs.lstat(dataFile, function(err, stats){
-			if(!err && stats.isFile()){
+			if(!err && stats.isFile() && (refeine === true || !(isTableExists(tableName)))){
 				var dataFileStream = fs.createReadStream(dataFile);
 				var referentialDataFileStream = fs.createWriteStream(path.join(this.hawk_referentiel_data_folder , tableName));
 
