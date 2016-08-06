@@ -1,12 +1,15 @@
 var vorpal = require('vorpal')();
 var path =  require('path');
 var cli =  require('./Hawk_cli');
-
+var fs =  require('fs');
 var configurationPaths =  require('./config/configPaths.json');
 
-console.log('\t\t\t$$$$$$$$$$$$$$$$$$$$$ Hawk $$$$$$$$$$$$$$$$$$$$$$');
-console.log('\t\t\t$$  Tool to Manage Hawk internal Processing  $$');
-console.log('\t\t\t$$  =========== CopyRights @Hawk ===========  $$');
+
+var buf = fs.readFileSync('./hawk.logo', "utf8"); 
+console.log(buf);          
+// console.log('\t\t\t$$$$$$$$$$$$$$$$$$$$$ Hawk $$$$$$$$$$$$$$$$$$$$$$');
+// console.log('\t\t\t$$  Tool to Manage Hawk internal Processing  $$');
+// console.log('\t\t\t$$  =========== CopyRights @Hawk ===========  $$');
 vorpal
   .command('secureConf <name>', 'Convert config file to secure format')
   .action(function(args, callback) {
@@ -16,6 +19,7 @@ vorpal
   vorpal
   .command('initRefTable <table_name> <data_file> <redefine>', 'Initialize the referential table')
   .action(function(args, callback) {
+    cli.init(args.table_name , args.data_file,true);
     callback();
   });
   vorpal
@@ -50,7 +54,9 @@ vorpal
     callback();
   });
 //getting configuration data:
-var hawk_cli_configuration={};
+var hawk_cli_configuration={
+  data_folder_path:path.join(__dirname,'data')
+};
 //init cli
-cli.init(hawk_cli_configuration);
+cli.config(hawk_cli_configuration);
 vorpal.delimiter('Hawk $').show();

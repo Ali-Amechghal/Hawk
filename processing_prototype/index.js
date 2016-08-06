@@ -30,7 +30,7 @@ function initHawk(params){
 		user_name:'root',
 		user_password:'',
 		host:'localhost',
-		dialect:'mysql',
+		dialect:'postgres',
 		pool:{
 			max:5,
 			min:0,
